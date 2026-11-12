@@ -1,0 +1,72 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin authorization check: either pre-authorized owner email or registered in /admins
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'elvoravision@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Default catch-all deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Leads collection: Public can create leads (Contact & Free Audit forms); only Admin can read or manage
+    match /leads/{leadId} {
+      allow create: if isValidId(leadId) &&
+        request.resource.data.name is string &&
+        request.resource.data.phone is string &&
+        request.resource.data.business is string;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Public content collections: Public can read, only Admin can create/update/delete
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /portfolio/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /blog/{postId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /team/{memberId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

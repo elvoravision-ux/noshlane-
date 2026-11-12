@@ -1,0 +1,185 @@
+{
+  "entities": {
+    "Lead": {
+      "title": "Lead",
+      "description": "Contact form or Free Audit submission lead",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Full name of the prospect" },
+        "phone": { "type": "string", "description": "Phone or WhatsApp contact" },
+        "email": { "type": "string", "description": "Optional email address" },
+        "business": { "type": "string", "description": "Business or brand name" },
+        "service": { "type": "string", "description": "Service needed or requested" },
+        "message": { "type": "string", "description": "Project brief or notes" },
+        "type": { "type": "string", "enum": ["contact", "audit"], "description": "Submission type" },
+        "websiteOrSocial": { "type": "string", "description": "Website link or social handle for audit" },
+        "adSpend": { "type": "string", "description": "Monthly spend or budget bracket" },
+        "primaryGoal": { "type": "string", "description": "Primary bottleneck or goal" },
+        "status": { "type": "string", "enum": ["new", "contacted", "won", "lost"], "description": "Lead triage status" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of submission" }
+      },
+      "required": ["name", "phone", "business", "type", "status"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "Agency service capability details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "title": { "type": "string" },
+        "heroKicker": { "type": "string" },
+        "tagline": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "fullDescription": { "type": "string" },
+        "iconName": { "type": "string" },
+        "statHighlight": { "type": "object" },
+        "whatsIncluded": { "type": "array" },
+        "processSteps": { "type": "array" },
+        "deliverables": { "type": "array" },
+        "faqs": { "type": "array" },
+        "idealFor": { "type": "array" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "slug", "title", "shortDescription", "fullDescription"]
+    },
+    "PortfolioProject": {
+      "title": "PortfolioProject",
+      "description": "Agency case study project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "title": { "type": "string" },
+        "client": { "type": "string" },
+        "year": { "type": "string" },
+        "category": { "type": "string" },
+        "categories": { "type": "array" },
+        "featured": { "type": "boolean" },
+        "coverImage": { "type": "string" },
+        "galleryImages": { "type": "array" },
+        "heroSnippet": { "type": "string" },
+        "keyMetric": { "type": "string" },
+        "challenge": { "type": "string" },
+        "solution": { "type": "string" },
+        "strategyHighlights": { "type": "array" },
+        "results": { "type": "array" },
+        "testimonialQuote": { "type": "object" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "slug", "title", "client", "keyMetric"]
+    },
+    "BlogPost": {
+      "title": "BlogPost",
+      "description": "Growth strategy article",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "title": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "category": { "type": "string" },
+        "readTime": { "type": "string" },
+        "date": { "type": "string" },
+        "coverImage": { "type": "string" },
+        "author": { "type": "object" },
+        "keyTakeaways": { "type": "array" },
+        "contentParagraphs": { "type": "array" },
+        "status": { "type": "string", "enum": ["published", "draft"] }
+      },
+      "required": ["id", "slug", "title", "excerpt", "category"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Client endorsement review",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "company": { "type": "string" },
+        "location": { "type": "string" },
+        "quote": { "type": "string" },
+        "metric": { "type": "string" },
+        "service": { "type": "string" },
+        "initials": { "type": "string" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "name", "role", "company", "quote"]
+    },
+    "TeamMember": {
+      "title": "TeamMember",
+      "description": "Agency director or team lead profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "department": { "type": "string" },
+        "bio": { "type": "string" },
+        "specialties": { "type": "array" },
+        "education": { "type": "string" },
+        "experience": { "type": "string" },
+        "image": { "type": "string" },
+        "tools": { "type": "array" },
+        "notableAchievement": { "type": "string" },
+        "linkedin": { "type": "string" },
+        "email": { "type": "string" },
+        "avatarInitials": { "type": "string" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "name", "role", "bio"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Global website settings and contact configuration",
+      "type": "object",
+      "properties": {
+        "whatsappNumber": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "phoneDisplay": { "type": "string" },
+        "address": { "type": "string" },
+        "city": { "type": "string" },
+        "hours": { "type": "string" },
+        "headline": { "type": "string" },
+        "tagline": { "type": "string" },
+        "heroSnippet": { "type": "string" },
+        "stats": { "type": "array" },
+        "socials": { "type": "array" },
+        "metaTitle": { "type": "string" },
+        "metaDescription": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/leads/{leadId}": {
+      "schema": { "$ref": "#/entities/Lead" },
+      "description": "Submissions from prospective clients"
+    },
+    "/services/{serviceId}": {
+      "schema": { "$ref": "#/entities/Service" },
+      "description": "Live services catalog and details"
+    },
+    "/portfolio/{projectId}": {
+      "schema": { "$ref": "#/entities/PortfolioProject" },
+      "description": "Live client case studies"
+    },
+    "/blog/{postId}": {
+      "schema": { "$ref": "#/entities/BlogPost" },
+      "description": "Live strategy articles and field notes"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": { "$ref": "#/entities/Testimonial" },
+      "description": "Live client reviews"
+    },
+    "/team/{memberId}": {
+      "schema": { "$ref": "#/entities/TeamMember" },
+      "description": "Live team leadership profiles"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Settings" },
+      "description": "Live global website settings"
+    }
+  }
+}
