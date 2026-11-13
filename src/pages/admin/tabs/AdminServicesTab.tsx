@@ -428,8 +428,7 @@ export const AdminServicesTab: React.FC = () => {
         isOpen={!!isDeletingId}
         title="Delete Service"
         message="Are you sure you want to delete this service? All service pages and references will be affected."
-        confirmText="Delete Service"
-        isDestructive
+        confirmLabel="Delete Service"
         onConfirm={confirmDelete}
         onCancel={() => setIsDeletingId(null)}
       />

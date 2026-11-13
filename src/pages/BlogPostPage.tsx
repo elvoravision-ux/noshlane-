@@ -4,19 +4,22 @@ import { ArrowLeft, Clock, Calendar, CheckCircle2, Share2, Copy, Check, MessageC
 import { SEOHead } from '../components/SEOHead';
 import { CTASection } from '../components/CTASection';
 import { BLOG_POSTS } from '../data/blog';
+import { useContent } from '../context/ContentContext';
 
 export function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { blog } = useContent();
+  const allPosts = blog?.length ? blog : BLOG_POSTS;
   const [copied, setCopied] = useState(false);
 
-  const postIndex = BLOG_POSTS.findIndex((p) => p.slug === slug);
-  const post = BLOG_POSTS[postIndex];
+  const postIndex = allPosts.findIndex((p) => p.slug === slug || p.id === slug);
+  const post = allPosts[postIndex];
 
   if (!post) {
     return <Navigate to="/blog" replace />;
   }
 
-  const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 2);
+  const relatedPosts = allPosts.filter((p) => p.slug !== slug && p.id !== slug).slice(0, 2);
 
   const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
 

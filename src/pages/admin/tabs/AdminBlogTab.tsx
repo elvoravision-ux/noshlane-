@@ -465,8 +465,7 @@ export const AdminBlogTab: React.FC = () => {
         isOpen={!!isDeletingId}
         title="Delete Article"
         message="Are you sure you want to delete this article? It will be removed permanently from the blog."
-        confirmText="Delete Article"
-        isDestructive
+        confirmLabel="Delete Article"
         onConfirm={confirmDelete}
         onCancel={() => setIsDeletingId(null)}
       />

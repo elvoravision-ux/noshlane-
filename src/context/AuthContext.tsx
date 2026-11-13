@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import {
   User,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
@@ -14,6 +16,7 @@ interface AuthContextType {
   loading: boolean;
   isAdmin: boolean;
   login: (email: string, pass: string) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
   registerInitialAdmin: (email: string, pass: string) => Promise<void>;
   logout: () => Promise<void>;
   authError: string | null;
@@ -86,6 +89,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const loginWithGoogle = async () => {
+    setAuthError(null);
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      const cred = await signInWithPopup(auth, provider);
+      const isOwner = cred.user.email?.toLowerCase() === OWNER_EMAIL.toLowerCase();
+      if (!isOwner) {
+        const adminDoc = await getDoc(doc(db, 'admins', cred.user.uid));
+        if (!adminDoc.exists()) {
+          await signOut(auth);
+          const msg = `Only authorized admin accounts (${OWNER_EMAIL}) can sign in.`;
+          setAuthError(msg);
+          throw new Error(msg);
+        }
+      } else {
+        try {
+          await setDoc(doc(db, 'admins', cred.user.uid), {
+            email: cred.user.email,
+            role: 'owner',
+            updatedAt: new Date().toISOString(),
+          }, { merge: true });
+        } catch {
+          // Rule check
+        }
+      }
+    } catch (err: any) {
+      console.error('Google login error:', err);
+      const msg = err.message || 'Failed to sign in with Google.';
+      setAuthError(msg);
+      throw new Error(msg);
+    }
+  };
+
   const registerInitialAdmin = async (email: string, pass: string) => {
     setAuthError(null);
     try {
@@ -106,6 +143,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let msg = err.message || 'Failed to register admin';
       if (err.code === 'auth/email-already-in-use') {
         msg = 'Account already exists. Please log in with this email and password.';
+      } else if (err.code === 'auth/operation-not-allowed') {
+        msg = 'Email/Password sign-in is not yet enabled in Firebase Console. Use "Continue with Google" below or enable Email/Password in Firebase Authentication.';
       }
       setAuthError(msg);
       throw new Error(msg);
@@ -127,6 +166,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loading,
         isAdmin,
         login,
+        loginWithGoogle,
         registerInitialAdmin,
         logout,
         authError,

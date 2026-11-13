@@ -274,7 +274,7 @@ export const AdminTeamTab: React.FC = () => {
                 label="Profile Photo (Direct URL or Upload Image)"
                 value={formData.image}
                 onChange={(url) => setFormData({ ...formData, image: url })}
-                storagePath="team"
+                folder="team"
               />
 
               <div>
@@ -347,8 +347,7 @@ export const AdminTeamTab: React.FC = () => {
         isOpen={!!isDeletingId}
         title="Remove Team Member"
         message="Are you sure you want to remove this member? They will no longer be listed on the about page."
-        confirmText="Remove"
-        isDestructive
+        confirmLabel="Remove"
         onConfirm={confirmDelete}
         onCancel={() => setIsDeletingId(null)}
       />

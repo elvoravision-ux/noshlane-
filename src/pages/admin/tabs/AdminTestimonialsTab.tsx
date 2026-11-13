@@ -294,8 +294,7 @@ export const AdminTestimonialsTab: React.FC = () => {
         isOpen={!!isDeletingId}
         title="Delete Testimonial"
         message="Are you sure you want to remove this testimonial? It will no longer appear on the home or about pages."
-        confirmText="Delete"
-        isDestructive
+        confirmLabel="Delete"
         onConfirm={confirmDelete}
         onCancel={() => setIsDeletingId(null)}
       />

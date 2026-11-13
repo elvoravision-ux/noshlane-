@@ -7,11 +7,14 @@ import { TeamMemberCard } from '../components/TeamMemberCard';
 import { TeamProfileModal } from '../components/TeamProfileModal';
 import { TEAM_MEMBERS, AGENCY_VALUES, TeamMember } from '../data/team';
 import { AGENCY_DETAILS } from '../data/agency';
+import { useContent } from '../context/ContentContext';
 
 export function AboutPage() {
+  const { team } = useContent();
+  const displayTeam = team?.length ? team : TEAM_MEMBERS;
   const [cultureImgError, setCultureImgError] = useState(false);
   const [activeProfile, setActiveProfile] = useState<TeamMember | null>(null);
-  const cultureImageSrc = "/src/assets/images/about_agency_culture_1794498364495.jpg";
+  const cultureImageSrc = "/assets/images/about_agency_culture_1794498364495.jpg";
 
   return (
     <>
@@ -148,7 +151,7 @@ export function AboutPage() {
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {TEAM_MEMBERS.map((member) => (
+            {displayTeam.map((member) => (
               <TeamMemberCard
                 key={member.id}
                 member={member}

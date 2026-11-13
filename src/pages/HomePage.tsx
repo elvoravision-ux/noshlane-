@@ -11,16 +11,19 @@ import { CTASection } from '../components/CTASection';
 import { AGENCY_DETAILS } from '../data/agency';
 import { SERVICES_DATA } from '../data/services';
 import { PORTFOLIO_PROJECTS } from '../data/portfolio';
+import { TeamMember } from '../data/team';
 import { useContent } from '../context/ContentContext';
 
 export function HomePage() {
   const { services, portfolio, team, testimonials, settings } = useContent();
   const [heroImgError, setHeroImgError] = useState(false);
+  const [heroBannerError, setHeroBannerError] = useState(false);
   const [selectedTeamMember, setSelectedTeamMember] = useState<TeamMember | null>(null);
 
   const featuredProjects = portfolio.filter((p) => p.featured).slice(0, 3);
   const displayProjects = featuredProjects.length > 0 ? featuredProjects : portfolio.slice(0, 3);
-  const heroImageSrc = "/src/assets/images/hero_nohslane_studio_1794498361737.jpg";
+  const heroImageSrc = "/assets/images/hero_nohslane_studio_1794498361737.jpg";
+  const heroBannerSrc = "/assets/images/hero_agency_banner_1794553307168.jpg";
 
   const whatsappUrl = `https://wa.me/${settings.whatsappNumber || AGENCY_DETAILS.contact.whatsappNumber}?text=${encodeURIComponent(
     settings.whatsappDefaultMessage || AGENCY_DETAILS.contact.whatsappDefaultMessage
@@ -33,16 +36,33 @@ export function HomePage() {
         description="Scaling high-growth brands through cinema-grade content creation, disciplined paid performance advertising, bespoke web development, and timeless brand identity in Lahore."
       />
 
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-[#0A0716]">
-        {/* Ambient cosmic backdrop glow matching the logo's teal and purple wings */}
-        <div className="absolute top-0 left-1/4 w-[500px] h-[350px] bg-cyan-500/10 blur-[130px] pointer-events-none rounded-full" />
-        <div className="absolute top-20 right-1/4 w-[550px] h-[400px] bg-indigo-600/15 blur-[150px] pointer-events-none rounded-full" />
+      {/* Hero Section with Full-Bleed Architectural Studio Backdrop Banner */}
+      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden bg-[#0A0716]">
+        {/* Background Banner Image + Contrast Scrims */}
+        <div className="absolute inset-0 pointer-events-none select-none">
+          {!heroBannerError ? (
+            <img
+              src={heroBannerSrc}
+              alt="NOSHLANE Modern Digital Marketing & Cinema Studio Lahore"
+              referrerPolicy="no-referrer"
+              onError={() => setHeroBannerError(true)}
+              className="w-full h-full object-cover object-center opacity-85 brightness-95 contrast-105 scale-[1.01]"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#0F0B24] via-[#0A0716] to-[#0D192B]" />
+          )}
+          {/* Balanced readability scrim letting the studio architecture shine through */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0716]/80 via-[#0A0716]/45 to-[#0A0716]/15" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0716]/90 via-transparent to-[#0A0716]/35" />
+          {/* Ambient teal & indigo architectural light accents */}
+          <div className="absolute top-0 left-1/4 w-[500px] h-[350px] bg-cyan-500/10 blur-[130px] rounded-full" />
+          <div className="absolute top-20 right-1/4 w-[550px] h-[400px] bg-indigo-600/15 blur-[150px] rounded-full" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Brand Badge */}
           <div className="flex justify-center sm:justify-start mb-6">
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#161033] border border-cyan-500/30 shadow-inner">
+            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#161033]/90 backdrop-blur-md border border-cyan-500/30 shadow-inner">
               <img
                 src={AGENCY_DETAILS.logoUrl}
                 alt="NOSHLANE Icon"
@@ -61,7 +81,7 @@ export function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
             {/* Left Column: Headline and Value Proposition */}
             <div className="lg:col-span-7 space-y-6 text-center sm:text-left">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.08] text-balance">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.08] text-balance drop-shadow-[0_2px_18px_rgba(0,0,0,0.9)]">
                 {settings.heroHeadline || (
                   <>
                     Digital marketing engineered for{' '}
@@ -72,7 +92,7 @@ export function HomePage() {
                 )}
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto sm:mx-0 leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-200 max-w-xl mx-auto sm:mx-0 leading-relaxed drop-shadow-[0_1px_10px_rgba(0,0,0,0.9)]">
                 {settings.heroSnippet || 'NOSHLANE unites cinema-grade visual storytelling with high-precision paid advertising and custom web engineering. We scale consumer and B2B brands across Pakistan, the GCC, and global markets.'}
               </p>
 

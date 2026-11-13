@@ -4,15 +4,18 @@ import { Search, ArrowRight, Clock, Calendar } from 'lucide-react';
 import { SEOHead } from '../components/SEOHead';
 import { CTASection } from '../components/CTASection';
 import { BLOG_POSTS } from '../data/blog';
+import { useContent } from '../context/ContentContext';
 
 const CATEGORIES = ['All', 'Paid Media', 'Content Creation', 'Web & E-Commerce', 'Branding'] as const;
 
 export function BlogPage() {
+  const { blog } = useContent();
+  const allPosts = blog?.length ? blog : BLOG_POSTS;
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const filteredPosts = useMemo(() => {
-    return BLOG_POSTS.filter((post) => {
+    return allPosts.filter((post) => {
       const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
       const matchesSearch =
         searchQuery === '' ||
@@ -20,7 +23,7 @@ export function BlogPage() {
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [allPosts, searchQuery, selectedCategory]);
 
   return (
     <>

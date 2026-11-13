@@ -330,7 +330,7 @@ export const AdminPortfolioTab: React.FC = () => {
                 label="Cover Image (Direct URL or Upload file)"
                 value={formData.coverImage}
                 onChange={(url) => setFormData({ ...formData, coverImage: url })}
-                storagePath="portfolio"
+                folder="portfolio"
               />
 
               {/* Key Metrics */}
@@ -473,8 +473,7 @@ export const AdminPortfolioTab: React.FC = () => {
         isOpen={!!isDeletingId}
         title="Delete Portfolio Project"
         message="Are you sure you want to delete this case study? This action will remove it live from the website."
-        confirmText="Delete Project"
-        isDestructive
+        confirmLabel="Delete Project"
         onConfirm={confirmDelete}
         onCancel={() => setIsDeletingId(null)}
       />

@@ -217,6 +217,12 @@ export function ContactPage() {
                       {errors.message && <p className="text-xs text-red-400 mt-1">{errors.message}</p>}
                     </div>
 
+                    {submitError && (
+                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+                        {submitError}
+                      </div>
+                    )}
+
                     <button
                       type="submit"
                       disabled={submitting}
@@ -299,15 +305,15 @@ export function ContactPage() {
                 </p>
 
                 <a
-                  href={`https://wa.me/${AGENCY_DETAILS.contact.whatsappNumber}?text=${encodeURIComponent(
-                    AGENCY_DETAILS.contact.whatsappDefaultMessage
+                  href={`https://wa.me/${settings.whatsappNumber || AGENCY_DETAILS.contact.whatsappNumber}?text=${encodeURIComponent(
+                    settings.whatsappDefaultMessage || AGENCY_DETAILS.contact.whatsappDefaultMessage
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 text-xs font-semibold text-white bg-[#25D366] hover:bg-[#20ba59] rounded-md transition-colors shadow-sm"
                 >
                   <MessageCircle className="w-4 h-4 fill-white stroke-none" />
-                  <span>Open WhatsApp (+92 300 1234567)</span>
+                  <span>Open WhatsApp ({settings.phoneDisplay || AGENCY_DETAILS.contact.phoneDisplay})</span>
                 </a>
               </div>
 
@@ -322,7 +328,7 @@ export function ContactPage() {
                     <MapPin className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                     <div className="space-y-0.5">
                       <p className="font-semibold text-white">NOSHLANE Lahore Studio</p>
-                      <p>{AGENCY_DETAILS.location.fullAddress}</p>
+                      <p>{settings.fullAddress || AGENCY_DETAILS.location.fullAddress}</p>
                       <p className="text-slate-500">{AGENCY_DETAILS.location.landmark}</p>
                     </div>
                   </div>
@@ -331,8 +337,8 @@ export function ContactPage() {
                     <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
                     <div>
                       <p className="text-slate-400">Inquiries:</p>
-                      <a href={`mailto:${AGENCY_DETAILS.contact.email}`} className="text-white hover:text-cyan-300 transition-colors">
-                        {AGENCY_DETAILS.contact.email}
+                      <a href={`mailto:${settings.contactEmail || AGENCY_DETAILS.contact.email}`} className="text-white hover:text-cyan-300 transition-colors">
+                        {settings.contactEmail || AGENCY_DETAILS.contact.email}
                       </a>
                     </div>
                   </div>
@@ -341,8 +347,8 @@ export function ContactPage() {
                     <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
                     <div>
                       <p className="text-slate-400">Direct Desk:</p>
-                      <a href={`tel:${AGENCY_DETAILS.contact.phone.replace(/\s+/g, '')}`} className="text-white hover:text-cyan-300 transition-colors">
-                        {AGENCY_DETAILS.contact.phoneDisplay}
+                      <a href={`tel:${(settings.phone || AGENCY_DETAILS.contact.phone).replace(/\s+/g, '')}`} className="text-white hover:text-cyan-300 transition-colors">
+                        {settings.phoneDisplay || AGENCY_DETAILS.contact.phoneDisplay}
                       </a>
                     </div>
                   </div>
@@ -351,7 +357,7 @@ export function ContactPage() {
                     <Clock className="w-4 h-4 text-cyan-400 shrink-0" />
                     <div>
                       <p className="text-slate-400">Operating Hours:</p>
-                      <p className="text-white">{AGENCY_DETAILS.contact.hours}</p>
+                      <p className="text-white">{settings.hours || AGENCY_DETAILS.contact.hours}</p>
                     </div>
                   </div>
                 </div>

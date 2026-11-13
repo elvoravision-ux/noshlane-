@@ -37,10 +37,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     category: "Branding",
     categories: ["Branding", "Social Media"],
     featured: true,
-    coverImage: "/src/assets/images/case_artisan_coffee_1794498361836.jpg",
+    coverImage: "/assets/images/case_artisan_coffee_1794498361836.jpg",
     galleryImages: [
-      "/src/assets/images/case_artisan_coffee_1794498361836.jpg",
-      "/src/assets/images/hero_nohslane_studio_1794498361737.jpg"
+      "/assets/images/case_artisan_coffee_1794498361836.jpg",
+      "/assets/images/hero_nohslane_studio_1794498361737.jpg"
     ],
     heroSnippet: "How a Lahore specialty roastery scaled from a quiet cafe to nationwide e-commerce dominance with +310% online sales.",
     keyMetric: "+310% D2C Online Sales",
@@ -73,10 +73,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     category: "Paid Ads",
     categories: ["Paid Ads", "Web Development"],
     featured: true,
-    coverImage: "/src/assets/images/case_fintech_growth_1794498363266.jpg",
+    coverImage: "/assets/images/case_fintech_growth_1794498363266.jpg",
     galleryImages: [
-      "/src/assets/images/case_fintech_growth_1794498363266.jpg",
-      "/src/assets/images/about_agency_culture_1794498364495.jpg"
+      "/assets/images/case_fintech_growth_1794498363266.jpg",
+      "/assets/images/about_agency_culture_1794498364495.jpg"
     ],
     heroSnippet: "Scaling customer acquisition for a mobile financial platform with 4.8x ROAS and 45,000+ verified app installs at 38% lower CAC.",
     keyMetric: "4.8x ROAS / 45k Installs",
@@ -109,10 +109,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     category: "Content Creation",
     categories: ["Content Creation", "Branding"],
     featured: true,
-    coverImage: "/src/assets/images/case_apparel_brand_1794498363624.jpg",
+    coverImage: "/assets/images/case_apparel_brand_1794498363624.jpg",
     galleryImages: [
-      "/src/assets/images/case_apparel_brand_1794498363624.jpg",
-      "/src/assets/images/hero_nohslane_studio_1794498361737.jpg"
+      "/assets/images/case_apparel_brand_1794498363624.jpg",
+      "/assets/images/hero_nohslane_studio_1794498361737.jpg"
     ],
     heroSnippet: "12M+ organic video views and an 85% collection sell-out in under 48 hours for a contemporary Pakistani apparel brand.",
     keyMetric: "12M+ Organic Views & 85% Drop Sellout",
@@ -145,8 +145,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     category: "Social Media",
     categories: ["Social Media", "Paid Ads"],
     featured: false,
-    coverImage: "/src/assets/images/hero_nohslane_studio_1794498361737.jpg",
-    galleryImages: ["/src/assets/images/hero_nohslane_studio_1794498361737.jpg"],
+    coverImage: "/assets/images/hero_nohslane_studio_1794498361737.jpg",
+    galleryImages: ["/assets/images/hero_nohslane_studio_1794498361737.jpg"],
     heroSnippet: "Transforming medical aesthetic lead generation in Lahore with ethical doctor-led education and high-ticket bookings.",
     keyMetric: "+240% Inbound Qualified Inquiries",
     challenge: "The aesthetics market in Lahore suffers from heavy price-discount wars and consumer skepticism regarding safety and qualifications.",
@@ -171,8 +171,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     category: "Web Development",
     categories: ["Web Development"],
     featured: false,
-    coverImage: "/src/assets/images/case_fintech_growth_1794498363266.jpg",
-    galleryImages: ["/src/assets/images/case_fintech_growth_1794498363266.jpg"],
+    coverImage: "/assets/images/case_fintech_growth_1794498363266.jpg",
+    galleryImages: ["/assets/images/case_fintech_growth_1794498363266.jpg"],
     heroSnippet: "Engineering a sub-second logistics tracking platform and quote calculator handling 50,000+ monthly shipments.",
     keyMetric: "99.98% Uptime & 2.1s Load Speed",
     challenge: "Vortex was losing major multinational corporate logistics contracts because their legacy 2012 PHP website was slow, broken on mobile devices, and lacked real-time container tracking.",
@@ -197,8 +197,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     category: "Content Creation",
     categories: ["Content Creation", "Social Media"],
     featured: false,
-    coverImage: "/src/assets/images/about_agency_culture_1794498364495.jpg",
-    galleryImages: ["/src/assets/images/about_agency_culture_1794498364495.jpg"],
+    coverImage: "/assets/images/about_agency_culture_1794498364495.jpg",
+    galleryImages: ["/assets/images/about_agency_culture_1794498364495.jpg"],
     heroSnippet: "Driving packed weekend dinner tables in Lahore through sensory culinary cinematography and micro-creator tastings.",
     keyMetric: "+180% Weekend Foot Traffic",
     challenge: "Opening a high-concept artisanal sourdough and wood-fired bistro in Lahore's hyper-competitive dining sector required immediate buzz without cheap discounts.",

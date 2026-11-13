@@ -226,6 +226,12 @@ export function FreeAuditPage() {
                     </div>
                   </div>
 
+                  {submitError && (
+                    <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+                      {submitError}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
                     disabled={submitting}

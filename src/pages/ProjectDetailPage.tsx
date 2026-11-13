@@ -4,19 +4,22 @@ import { ArrowLeft, ArrowUpRight, CheckCircle2, Quote } from 'lucide-react';
 import { SEOHead } from '../components/SEOHead';
 import { CTASection } from '../components/CTASection';
 import { PORTFOLIO_PROJECTS } from '../data/portfolio';
+import { useContent } from '../context/ContentContext';
 
 export function ProjectDetailPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { portfolio } = useContent();
+  const projects = portfolio?.length ? portfolio : PORTFOLIO_PROJECTS;
   const [imgErrorIndex, setImgErrorIndex] = useState<Record<number, boolean>>({});
 
-  const projectIndex = PORTFOLIO_PROJECTS.findIndex((p) => p.slug === slug);
-  const project = PORTFOLIO_PROJECTS[projectIndex];
+  const projectIndex = projects.findIndex((p) => p.slug === slug || p.id === slug);
+  const project = projects[projectIndex];
 
   if (!project) {
     return <Navigate to="/portfolio" replace />;
   }
 
-  const nextProject = PORTFOLIO_PROJECTS[(projectIndex + 1) % PORTFOLIO_PROJECTS.length];
+  const nextProject = projects[(projectIndex + 1) % projects.length];
 
   return (
     <>

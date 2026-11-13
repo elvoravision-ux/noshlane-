@@ -144,9 +144,24 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     });
 
     // Portfolio Listener
+    const normalizeImg = (url?: string) =>
+      typeof url === 'string' && url.startsWith('/src/assets/images/')
+        ? url.replace('/src/assets/images/', '/assets/images/')
+        : url || '';
+
     const unsubPortfolio = onSnapshot(collection(db, 'portfolio'), (snapshot) => {
       if (!snapshot.empty) {
-        const items = snapshot.docs.map((docSnap) => ({ ...docSnap.data(), id: docSnap.id } as PortfolioProject));
+        const items = snapshot.docs.map((docSnap) => {
+          const data = docSnap.data() as PortfolioProject;
+          return {
+            ...data,
+            id: docSnap.id,
+            coverImage: normalizeImg(data.coverImage),
+            galleryImages: Array.isArray(data.galleryImages)
+              ? data.galleryImages.map(normalizeImg)
+              : [],
+          };
+        });
         setPortfolio(items);
       }
     }, (error) => {
@@ -176,7 +191,14 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     // Team Listener
     const unsubTeam = onSnapshot(collection(db, 'team'), (snapshot) => {
       if (!snapshot.empty) {
-        const items = snapshot.docs.map((docSnap) => ({ ...docSnap.data(), id: docSnap.id } as TeamMember));
+        const items = snapshot.docs.map((docSnap) => {
+          const data = docSnap.data() as TeamMember;
+          return {
+            ...data,
+            id: docSnap.id,
+            image: normalizeImg(data.image),
+          };
+        });
         setTeam(items);
       }
     }, (error) => {
